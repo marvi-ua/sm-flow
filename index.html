@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFlow Social</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0a0f1e;
+      color: #e8eaf0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container { max-width: 640px; width: 100%; text-align: center; }
+    .badge {
+      display: inline-block;
+      background: #1a2744;
+      color: #4f8ef7;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #2a3d6b;
+      margin-bottom: 28px;
+    }
+    h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    h1 span { color: #4f8ef7; }
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #8a93aa;
+      margin-bottom: 40px;
+    }
+    .links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .links a {
+      color: #8a93aa;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid #2a3d6b;
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .links a:hover { color: #4f8ef7; border-color: #4f8ef7; }
+    footer {
+      margin-top: 60px;
+      font-size: 13px;
+      color: #3a4560;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Sports Analytics Content</div>
+    <h1>AutoFlow <span>Social</span></h1>
+    <p>
+      AI-powered football analytics content platform.<br />
+      Original stats, tactical breakdowns, and match analysis — automated and delivered daily.
+    </p>
+    <div class="links">
+      <a href="tos.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+  <footer>&copy; 2026 AutoFlow Social. All rights reserved.</footer>
+</body>
+</html>
