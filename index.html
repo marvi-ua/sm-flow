@@ -1,84 +1,467 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFlow Social</title>
+  <title>Flowcast — AI-Powered Content Platform</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0f1e;
+      --surface:   #111827;
+      --border:    #1e2d4a;
+      --accent:    #4f8ef7;
+      --accent-dim:#1a2e5a;
+      --text:      #e8eaf0;
+      --muted:     #8a93aa;
+      --faint:     #3a4560;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0a0f1e;
-      color: #e8eaf0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
-    .container { max-width: 640px; width: 100%; text-align: center; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
     .badge {
       display: inline-block;
-      background: #1a2744;
-      color: #4f8ef7;
+      background: var(--accent-dim);
+      color: var(--accent);
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 6px 14px;
+      padding: 6px 16px;
       border-radius: 20px;
-      border: 1px solid #2a3d6b;
-      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
     }
     h1 {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      font-size: clamp(36px, 7vw, 62px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 24px;
     }
-    h1 span { color: #4f8ef7; }
-    p {
-      font-size: 17px;
+    h1 .accent { color: var(--accent); }
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 48px;
       line-height: 1.7;
-      color: #8a93aa;
-      margin-bottom: 40px;
     }
-    .links {
+    .hero-links {
       display: flex;
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
     }
-    .links a {
-      color: #8a93aa;
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 8px;
       text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 15px;
+      padding: 13px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── SECTION ── */
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 56px;
+      line-height: 1.75;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-dim);
+      color: var(--accent);
       font-size: 14px;
-      border-bottom: 1px solid #2a3d6b;
-      padding-bottom: 2px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .step p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .feature p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 680px) {
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 20px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--faint);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
       transition: color 0.2s, border-color 0.2s;
     }
-    .links a:hover { color: #4f8ef7; border-color: #4f8ef7; }
-    footer {
-      margin-top: 60px;
-      font-size: 13px;
-      color: #3a4560;
+    .footer-legal a:hover { color: var(--accent); border-color: var(--accent); }
+
+    @media (max-width: 560px) {
+      footer { flex-direction: column; padding: 32px 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="badge">Fun Entertainment Content</div>
-    <h1>AutoFlow <span>Social</span></h1>
+
+  <nav>
+    <div class="logo">Flow<span>cast</span></div>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="tos.html">Terms</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">AI-Powered Content Platform</div>
+    <h1>Automated video content,<br /><span class="accent">built for scale</span></h1>
     <p>
-      AI-powered entertainment content platform.<br />
+      Flowcast is an AI-driven platform that creates, edits, and publishes original short-form entertainment videos to TikTok and Instagram — fully automated, from idea to post.
     </p>
-    <div class="links">
+    <div class="hero-links">
+      <a href="#how-it-works" class="btn-primary">See how it works</a>
+      <a href="#about" class="btn-ghost">Learn more</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="section-label">How it works</div>
+    <h2>From trending topic to published video</h2>
+    <p class="section-desc">
+      Flowcast runs a daily pipeline of specialized AI agents, each owning one part of the content lifecycle.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Trend Detection</h3>
+        <p>Scans trending topics daily across platforms and scores them for virality and audience fit.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Script Generation</h3>
+        <p>AI writes a complete video script — hook, body, and call to action — optimized for short-form retention.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Voice & Music</h3>
+        <p>Text-to-speech voiceover is generated and paired with mood-matched background music from licensed sources.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Video Editing</h3>
+        <p>Stock footage, text overlays, and audio are assembled into a finished 1080×1920 vertical video.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h3>Quality Review</h3>
+        <p>An AI quality gate checks every video before it is posted — hook strength, audio balance, caption readability.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <h3>Auto-Publishing</h3>
+        <p>Approved videos are scheduled and posted to TikTok and Instagram at optimal times via official platform APIs.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">Features</div>
+    <h2>Built for creators who want to scale</h2>
+    <p class="section-desc">
+      Every component is designed to run without daily intervention, with human override available at any stage.
+    </p>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <h3>Fully AI-generated content</h3>
+        <p>Scripts, voiceover, visuals, and music are all produced by AI — no broadcast footage, no copyright risk, no manual editing.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📅</div>
+        <h3>Smart scheduling</h3>
+        <p>Posts are timed to audience activity windows and randomized to avoid automation detection patterns.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <h3>Niche-configurable</h3>
+        <p>The entire pipeline is driven by a topic configuration — swap the niche and the whole system adapts, no code changes needed.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Analytics feedback loop</h3>
+        <p>Performance data from TikTok and Instagram flows back into the trend scoring model, improving future content automatically.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>API-compliant posting</h3>
+        <p>All publishing happens through official platform APIs. No browser automation, no Terms of Service violations.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Error handling & alerts</h3>
+        <p>Each agent retries failed jobs with exponential backoff. Failures are logged and flagged via Telegram notifications.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About Flowcast</div>
+        <h2>One pipeline.<br />Multiple channels.</h2>
+        <p>
+          Flowcast is an automated content publishing platform built to create and distribute original AI-generated entertainment video content at scale. Our system uses a chain of AI agents — each responsible for a discrete step — to go from daily trend discovery to a published video without human involvement.
+        </p>
+        <p>
+          All content produced by Flowcast is original. We use commercially licensed stock footage, AI-generated voiceover, and licensed music. We do not source, redistribute, or repurpose any broadcast media.
+        </p>
+        <p>
+          Flowcast integrates with TikTok and Instagram via their official developer APIs, posting only to accounts that have explicitly authorized access. We comply fully with each platform's developer policies and terms of service.
+        </p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-value">6</div>
+          <div class="stat-label">AI agents in the pipeline</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Platforms supported</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Original AI-generated content</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">API</div>
+          <div class="stat-label">Official integrations only</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- LEGAL NOTICE — prominently in page body per TikTok requirement -->
+  <section style="padding: 48px 24px; max-width: 1000px; margin: 0 auto; text-align: center;">
+    <p style="font-size: 15px; color: var(--muted); margin-bottom: 20px;">
+      Flowcast operates in full compliance with the developer policies of all integrated platforms.
+    </p>
+    <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+      <a href="tos.html" style="color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 2px;">Terms of Service</a>
+      <a href="privacy.html" style="color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 2px;">Privacy Policy</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">&copy; 2026 Flowcast. All rights reserved.</div>
+    <div class="footer-legal">
       <a href="tos.html">Terms of Service</a>
       <a href="privacy.html">Privacy Policy</a>
     </div>
-  </div>
-  <footer>&copy; 2026 AutoFlow Social. All rights reserved.</footer>
+  </footer>
+
 </body>
 </html>
